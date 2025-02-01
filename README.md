@@ -5,19 +5,19 @@ El Sistema de Gestión de Recursos Humanos permite gestionar empleados, horarios
 
 ## Capturas de Pantalla del Proyecto
 ### Home
-![Home](screenshots/home.png)
+![Home](app/assets/images/home.png)
 
 ### Login
-![Login](screenshots/login.png)
+![Login](app/assets/images/login.png)
 
 ### Nuevo Empleado
-![Nuevo Empleado](screenshots/empleado_nuevo.png)
+![Nuevo Empleado](app/assets/images/empleado_nuevo.png)
 
 ### Empleados
-![Empleados](screenshots/empleados.png)
+![Empleados](app/assets/images/empleados.png)
 
 ### Detalles del Empleado
-![Detalles del Empleado](screenshots/empleado_id.png)
+![Detalles del Empleado](app/assets/images/empleado_id.png)
 
 ## Prerrequisitos o Dependencias a Instalar
 - Ruby 2.7.2

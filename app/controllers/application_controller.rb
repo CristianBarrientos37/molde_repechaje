@@ -16,4 +16,12 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, notice: "No tienes permiso para realizar esta acción"
     end
   end
+
+  private
+
+  def authorize_admin
+    unless current_user&.user_type == 'administrator'
+      redirect_to root_path, alert: 'Solo administradores pueden realizar esta acción'
+    end
+  end
 end

@@ -16,7 +16,11 @@
           <p class="lead">Gestiona tus recursos humanos de manera eficiente y efectiva.</p>
           <div class="mt-4">
             <% if user_signed_in? %>
-              <%= link_to 'Ir al Dashboard', employees_path, class: 'btn btn-primary btn-lg' %>
+              <% if current_user.user_type == 'employee' %>
+                <%= link_to 'Mi Horario', employee_path(current_user.employee), class: 'btn btn-primary btn-lg' %>
+              <% else %>
+                <%= link_to 'Ir al Dashboard', employees_path, class: 'btn btn-primary btn-lg' %>
+              <% end %>
             <% else %>
               <%= link_to 'Iniciar Sesión', new_user_session_path, class: 'btn btn-primary btn-lg' %>
               <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-secondary btn-lg' %>

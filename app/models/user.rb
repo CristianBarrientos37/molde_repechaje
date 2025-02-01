@@ -2,11 +2,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :employee
-  
+  has_one :employee, dependent: :destroy
+  has_many :schedules, dependent: :destroy
+
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :user_type, inclusion: { in: %w[administrator manager employee] }
+  validates :user_type, presence: true
 
   before_create :set_first_user_as_admin
 
