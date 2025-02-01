@@ -1,46 +1,35 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center mb-0">Sign up</h2>
-        </div>
+      <div class="card shadow">
         <div class="card-body">
+          <h2 class="text-center mb-4">Registro</h2>
+
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
             <div class="mb-3">
-              <%= f.label :name, class: "form-label" %>
-              <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, class: "form-control" %>
-            </div>
-
-
-            <div class="mb-3">
-              <%= f.label :phone, class: "form-label" %>
-              <%= f.text_field :phone, autocomplete: "phone", required: true, class: "form-control" %>
-            </div>
-
-
-            <div class="mb-3">
-              <%= f.label :email, class: "form-label" %>
-              <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+              <%= f.label :name, "Nombre", class: "form-label" %>
+              <%= f.text_field :name, class: "form-control", required: true %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password, class: "form-label" %>
-              <% if @minimum_password_length %>
-                <span class="text-muted">(<%= @minimum_password_length %> characters minimum)</span>
-              <% end %>
-              <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+              <%= f.label :email, "Email", class: "form-label" %>
+              <%= f.email_field :email, class: "form-control", required: true %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password_confirmation, class: "form-label" %>
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+              <%= f.label :password, "Contraseña", class: "form-label" %>
+              <%= f.password_field :password, class: "form-control", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password_confirmation, "Confirmar Contraseña", class: "form-label" %>
+              <%= f.password_field :password_confirmation, class: "form-control", required: true %>
             </div>
 
             <div class="d-grid gap-2">
-              <%= f.submit "Sign up", class: "btn btn-primary btn-lg" %>
+              <%= f.submit "Registrarse", class: "btn btn-primary" %>
             </div>
           <% end %>
 

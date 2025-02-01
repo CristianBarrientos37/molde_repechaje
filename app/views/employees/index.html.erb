@@ -1,0 +1,77 @@
+<% if current_user&.user_type == 'administrator' || current_user&.user_type == 'manager' %>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Listado de Empleados</h2>
+      <% if current_user&.user_type == 'administrator' %>
+        <%= link_to "Nuevo Empleado", new_employee_path, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+    <div class="card shadow">
+      <div class="card-body">
+        <% if @employees.any? %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cargo</th>
+                  <th>Horario</th>
+                  <th>Fecha Contratación</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @employees.each do |employee| %>
+                  <tr>
+                    <td><%= employee.name %></td>
+                    <td><%= employee.position %></td>
+                    <td>
+                      <% if employee.schedules.any? %>
+                        <%= employee.schedules.first.shift_type == 'morning' ? '08:00 - 17:00' : '15:00 - 24:00' %>
+                      <% else %>
+                        Sin horario asignado
+                      <% end %>
+                    </td>
+                    <td><%= employee.hire_date.strftime('%d/%m/%Y') %></td>
+                    <td>
+                      <%= link_to employee_path(employee), class: "btn btn-sm btn-info text-white", title: "Ver" do %>
+                        <i class="fas fa-eye"></i>
+                      <% end %>
+                      
+                      <% if current_user&.user_type == 'administrator' || 
+                           (current_user&.user_type == 'manager' && employee.position == 'employee') %>
+                        <%= link_to edit_employee_path(employee), class: "btn btn-sm btn-warning", title: "Editar" do %>
+                          <i class="fas fa-pencil-alt"></i>
+                        <% end %>
+                      <% end %>
+                      
+                      <% if current_user&.user_type == 'administrator' %>
+                        <%= button_to employee_path(employee), 
+                            method: :delete, 
+                            class: "btn btn-sm btn-danger",
+                            title: "Eliminar",
+                            data: { confirm: "¿Estás seguro?" } do %>
+                          <i class="fas fa-trash-alt"></i>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <%= paginate @employees %>
+        <% else %>
+          <div class="alert alert-info">
+            No hay empleados registrados.
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="alert alert-danger">
+    No tienes permiso para acceder a esta página.
+  </div>
+<% end %>

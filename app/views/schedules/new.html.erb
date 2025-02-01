@@ -1,0 +1,66 @@
+<% if current_user&.user_type == 'administrator' %>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h2 class="text-center mb-4">Nuevo Horario</h2>
+
+            <%= form_for @schedule do |f| %>
+              <% if @schedule.errors.any? %>
+                <div class="alert alert-danger">
+                  <ul>
+                    <% @schedule.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <div class="mb-3">
+                <%= f.label :employee_id, "Empleado", class: "form-label" %>
+                <%= f.collection_select :employee_id, 
+                    Employee.all, 
+                    :id, 
+                    :name, 
+                    { prompt: 'Seleccione un empleado' }, 
+                    { class: "form-select", required: true } %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :name, "Nombre del Horario", class: "form-label" %>
+                <%= f.text_field :name, class: "form-control", required: true %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :description, "Descripción", class: "form-label" %>
+                <%= f.text_area :description, class: "form-control", rows: 3, required: true %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :shift_type, "Horario de Trabajo", class: "form-label" %>
+                <%= f.select :shift_type,
+                    [
+                      ['Mañana (08:00 - 17:00)', 'morning'],
+                      ['Tarde (15:00 - 24:00)', 'evening']
+                    ],
+                    { prompt: 'Seleccione un horario' },
+                    { class: "form-select", required: true }
+                %>
+              </div>
+
+              <div class="d-grid gap-2">
+                <%= f.submit "Crear Horario", class: "btn btn-primary" %>
+                <%= link_to "Cancelar", schedules_path, class: "btn btn-secondary mt-2" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="alert alert-danger">
+    No tienes permiso para acceder a esta página.
+  </div>
+<% end %>

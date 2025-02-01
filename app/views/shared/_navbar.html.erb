@@ -1,52 +1,47 @@
-<nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <!-- Brand with custom color -->
-    <a class="navbar-brand d-flex align-items-center text-info" href="/">
-      <i class="fas fa-paper-plane me-2"></i>
-      Avion de Papel
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <%= link_to "RRHH", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <% if current_user.user_type == 'administrator' || current_user.user_type == 'manager' %>
+            <li class="nav-item">
+              <%= link_to "Empleados", employees_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Horarios", schedules_path, class: "nav-link" %>
+            </li>
+          <% elsif current_user.user_type == 'employee' %>
+            <li class="nav-item">
+              <%= link_to "Mis Horarios", employee_path(current_user.employee), class: "nav-link" %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+      
+      <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-user-circle me-1"></i>
-              Mi Cuenta
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+              <%= current_user.name %> (<%= current_user.user_type %>)
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><%= link_to 'Mi Perfil', '#', class: 'dropdown-item text-dark' %></li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
-                <%= button_to destroy_user_session_path, method: :delete, class: 'dropdown-item text-danger' do %>
-                  <i class="fas fa-sign-out-alt me-1"></i> Cerrar sesión
-                <% end %>
-              </li>
-            </ul>
+            <div class="dropdown-menu dropdown-menu-end">
+              <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to new_user_session_path, class: 'nav-link btn btn-outline-info me-2 text-info' do %>
-              <i class="fas fa-sign-in-alt me-1"></i> Iniciar sesión
-            <% end %>
+            <%= link_to "Iniciar Sesión", new_user_session_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to new_user_registration_path, class: 'nav-link btn btn-info text-white' do %>
-              <i class="fas fa-user-plus me-1"></i> Registro
-            <% end %>
+            <%= link_to "Registrarse", new_user_registration_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>
-      <form class="d-flex ms-3" role="search">
-        <div class="input-group">
-          <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search">
-          <button class="btn btn-outline-info" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </form>
     </div>
   </div>
 </nav>
