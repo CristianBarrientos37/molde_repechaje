@@ -17,7 +17,9 @@
           <div class="mt-4">
             <% if user_signed_in? %>
               <% if current_user.user_type == 'employee' %>
-                <%= link_to 'Mi Horario', employee_path(current_user.employee), class: 'btn btn-primary btn-lg' %>
+                <% if current_user.employee.present? %>
+                  <%= link_to 'Mi Horario', employee_path(current_user.employee), class: 'btn btn-primary btn-lg' %>
+                <% end %>
               <% else %>
                 <%= link_to 'Ir al Dashboard', employees_path, class: 'btn btn-primary btn-lg' %>
               <% end %>

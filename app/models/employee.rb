@@ -1,6 +1,6 @@
 class Employee < ApplicationRecord
-  belongs_to :user
-  has_many :schedules
+  belongs_to :user, dependent: :destroy
+  has_many :schedules, dependent: :delete_all
 
   # Add Kaminari pagination
   paginates_per 10

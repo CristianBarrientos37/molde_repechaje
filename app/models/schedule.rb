@@ -1,5 +1,5 @@
 class Schedule < ApplicationRecord
-  belongs_to :employee
+  belongs_to :employee, dependent: :destroy
   belongs_to :user
 
   validates :name, presence: true
