@@ -70,3 +70,4 @@ Para Usuario Tipo Administrador:
 Para Usuario Tipo Usuario:
 - Email: usuario@mail.com
 - Contraseña: Abc123#
+"# GestionRRHH" 
